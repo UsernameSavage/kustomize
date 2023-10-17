@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: base
+  labels:
+    app: redis
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        app: redis
+        tier: frontend
+    spec:
+      containers:
+        - name: frontend-container
+          image: gcr.io/google_samples/gb-frontend:v5
+          ports:
+          - containerPort: 80

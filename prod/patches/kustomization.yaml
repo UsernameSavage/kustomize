@@ -1,0 +1,35 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: prod
+resources:
+- ../../base/frontend/
+- ../../base/redis/
+patches:
+- path: frontend-patch.yaml
+  target:
+    kind: Deployment
+    name: frontend
+- path: frontend-service-patch.yaml
+  target:
+    kind: Service
+    name: frontend
+- path: redis-follower-patch.yaml
+  target:
+    kind: Deployment
+    name: redis-follower
+- path: redis-follower-service-patch.yaml
+  target:
+    kind: Service
+    name: redis-leader
+- path: redis-leader-patch.yaml
+  target:
+    kind: Deployment
+    name: redis-leader
+- path: redis-leader-service-patch.yaml
+  target:
+    kind: Service
+    name: redis-leader
+- path: namespace-patch.yaml
+  target:
+    kind: Service
+    name: prod
